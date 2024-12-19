@@ -54,7 +54,7 @@ function fetchGitHubPinnedProjects() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer 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`, // Replace with your GitHub personal access token
+      Authorization: `Bearer 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`, // Replace with your new GitHub personal access token
     },
     body: JSON.stringify({ query }),
   })
