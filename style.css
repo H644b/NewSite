@@ -16,6 +16,26 @@ header {
     position: relative;
 }
 
+header nav {
+    margin-bottom: 20px;
+}
+
+header nav button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background: #fff;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+header nav button:hover {
+    background: #4a90e2;
+    color: #fff;
+}
+
 header::after {
     content: '';
     position: absolute;
