@@ -54,12 +54,20 @@ function fetchGitHubPinnedProjects() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer YOUR_GITHUB_PERSONAL_ACCESS_TOKEN`, // Replace with your GitHub personal access token
+      Authorization: `Bearer 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`, // Replace with your GitHub personal access token
     },
     body: JSON.stringify({ query }),
   })
     .then((response) => response.json())
     .then((data) => {
+      if (data.errors) {
+        console.error("GraphQL errors:", data.errors);
+        return;
+      }
+      if (!data.data || !data.data.user) {
+        console.error("Unexpected response structure:", data);
+        return;
+      }
       const projectsContainer = document.getElementById("projects-container");
       const repos = data.data.user.pinnedItems.nodes;
       repos.forEach((repo) => {
@@ -69,8 +77,10 @@ function fetchGitHubPinnedProjects() {
           <h3>${repo.name}</h3>
           <p>${repo.description || "No description available."}</p>
           <p>⭐ ${repo.stargazerCount} | 🍴 ${repo.forkCount}</p>
-          <p>Language: <span style="color: ${repo.primaryLanguage.color}">${
-          repo.primaryLanguage.name
+          <p>Language: <span style="color: ${
+            repo.primaryLanguage ? repo.primaryLanguage.color : "#000"
+          }">${
+          repo.primaryLanguage ? repo.primaryLanguage.name : "N/A"
         }</span></p>
           <a href="${repo.url}" target="_blank">View on GitHub</a>
         `;
